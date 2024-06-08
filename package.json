@@ -1,16 +1,16 @@
 {
-  "name": "event-bus",
+  "name": "native-pubsub",
   "type": "module",
   "version": "0.0.1",
   "exports": {
     ".": {
-      "import": "./dist/event-bus.js",
-      "require": "./dist/event-bus.cjs"
+      "import": "./dist/native-pubsub.js",
+      "require": "./dist/native-pubsub.cjs"
     }
   },
-  "main": "./dist/event-bus.cjs",
-  "module": "./dist/event-bus.js",
-  "types": "./dist/event-bus.d.ts",
+  "main": "./dist/native-pubsub.cjs",
+  "module": "./dist/native-pubsub.js",
+  "types": "./dist/native-pubsub.d.ts",
   "files": [
     "dist"
   ],
