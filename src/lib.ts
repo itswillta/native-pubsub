@@ -1,11 +1,15 @@
 /**
- * Creates an event bus that allows subscribing to and publishing events.
+ * Event bus class that allows subscribing to and publishing events.
  * @template T - The type of data that will be passed in the events.
- * @returns An object containing the `subscribe`, `publish`, and `publishSync` methods.
  */
-export function createEventBus<T = Record<string, unknown>>() {
-  const eventTarget = new EventTarget()
-  const defaultEventName: string = crypto.randomUUID()
+export class EventBus<T = Record<string, unknown>> {
+  #eventTarget: EventTarget
+  #defaultEventName: string
+
+  constructor() {
+    this.#eventTarget = new EventTarget()
+    this.#defaultEventName = crypto.randomUUID()
+  }
 
   /**
    * Subscribes to an event with the specified event handler.
@@ -13,17 +17,17 @@ export function createEventBus<T = Record<string, unknown>>() {
    * @param eventName - The name of the event to subscribe to. Defaults to the default event name.
    * @returns A function that can be called to unsubscribe from the event.
    */
-  const subscribe = (eventHandler: (data: T) => void, eventName = defaultEventName) => {
+  subscribe(eventHandler: (data: T) => void, eventName = this.#defaultEventName) {
     const handleEvent = (event: Event) => {
       const data = (event as CustomEvent).detail as T
 
       eventHandler(data)
     }
 
-    eventTarget.addEventListener(eventName, handleEvent)
+    this.#eventTarget.addEventListener(eventName, handleEvent)
 
     return () => {
-      eventTarget.removeEventListener(eventName, handleEvent)
+      this.#eventTarget.removeEventListener(eventName, handleEvent)
     }
   }
 
@@ -32,8 +36,8 @@ export function createEventBus<T = Record<string, unknown>>() {
    * @param data - The data to be passed in the event.
    * @param eventName - The name of the event to publish. Defaults to the default event name.
    */
-  const publishSync = (data: T, eventName = defaultEventName) => {
-    eventTarget.dispatchEvent(new CustomEvent(eventName, { detail: data }))
+  publishSync(data: T, eventName = this.#defaultEventName) {
+    this.#eventTarget.dispatchEvent(new CustomEvent(eventName, { detail: data }))
   }
 
   /**
@@ -41,9 +45,9 @@ export function createEventBus<T = Record<string, unknown>>() {
    * @param data - The data to be passed in the event.
    * @param eventName - The name of the event to publish. Defaults to the default event name.
    */
-  const publish = (data: T, eventName = defaultEventName) => {
-    Promise.resolve().then(() => publishSync(data, eventName))
-  }
+  async publish(data: T, eventName = this.#defaultEventName) {
+    await Promise.resolve()
 
-  return { subscribe, publish, publishSync }
+    this.publishSync(data, eventName)
+  }
 }

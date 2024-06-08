@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { createEventBus } from '../src'
+import { EventBus } from '../src'
 
-describe('createEventBus', () => {
+describe('eventBus', () => {
   it('should subscribe to and publish an event synchronously', () => {
-    const eventBus = createEventBus<number>()
+    const eventBus = new EventBus<number>()
     let receivedData: number | undefined
 
     const unsubscribe = eventBus.subscribe((data) => {
@@ -18,7 +18,7 @@ describe('createEventBus', () => {
   })
 
   it('should subscribe to and publish an event asynchronously', async () => {
-    const eventBus = createEventBus<string>()
+    const eventBus = new EventBus<string>()
     let receivedData: string | undefined
 
     const unsubscribe = eventBus.subscribe((data) => {
@@ -37,7 +37,7 @@ describe('createEventBus', () => {
   })
 
   it('should allow subscribing to multiple events', () => {
-    const eventBus = createEventBus<boolean>()
+    const eventBus = new EventBus<boolean>()
     let receivedData1: boolean | undefined
     let receivedData2: boolean | undefined
 
