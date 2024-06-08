@@ -1,11 +1,11 @@
-# Event Bus
+# Native Pubsub
 
 This library provides a simple and efficient way to manage events in your JavaScript or TypeScript applications. It allows you to create an event bus that you can subscribe to and publish events.
 
 ## Installation
 
 ```sh
-npm install event-bus
+npm install native-pubsub
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install event-bus
 First, you need to create an event bus:
 
 ```typescript
-import { createEventBus } from 'event-bus'
+import { createEventBus } from 'native-pubsub'
 
 const eventBus = createEventBus()
 
