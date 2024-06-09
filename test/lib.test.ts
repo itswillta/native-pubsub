@@ -1,61 +1,64 @@
-import { describe, expect, it } from 'vitest'
-import { EventBus } from '../src'
+import { describe, expect } from 'vitest';
 
-describe('eventBus', () => {
-  it('should subscribe to and publish an event synchronously', () => {
-    const eventBus = new EventBus<number>()
-    let receivedData: number | undefined
+import { EventBus } from '../src';
 
-    const unsubscribe = eventBus.subscribe((data) => {
-      receivedData = data
-    })
+describe('given EventBus class', () => {
+  describe('when an EventBus instance is created', () => {
+    it('then an event can be subscribed to and published synchronously', () => {
+      const eventBus = new EventBus<number>();
+      let receivedData: number | undefined;
 
-    eventBus.publishSync(42)
+      const unsubscribe = eventBus.subscribe((data) => {
+        receivedData = data;
+      });
 
-    expect(receivedData).toEqual(42)
+      eventBus.publishSync(42);
 
-    unsubscribe()
-  })
+      expect(receivedData).toEqual(42);
 
-  it('should subscribe to and publish an event asynchronously', async () => {
-    const eventBus = new EventBus<string>()
-    let receivedData: string | undefined
+      unsubscribe();
+    });
 
-    const unsubscribe = eventBus.subscribe((data) => {
-      receivedData = data
-    })
+    it('then an event can be subscribed to and published asynchronously', async () => {
+      const eventBus = new EventBus<string>();
+      let receivedData: string | undefined;
 
-    eventBus.publish('Hello, world!')
+      const unsubscribe = eventBus.subscribe((data) => {
+        receivedData = data;
+      });
 
-    expect(receivedData).toBeUndefined()
+      eventBus.publish('Hello, world!');
 
-    await Promise.resolve()
+      expect(receivedData).toBeUndefined();
 
-    expect(receivedData).toEqual('Hello, world!')
+      await Promise.resolve();
 
-    unsubscribe()
-  })
+      expect(receivedData).toEqual('Hello, world!');
 
-  it('should allow subscribing to multiple events', () => {
-    const eventBus = new EventBus<boolean>()
-    let receivedData1: boolean | undefined
-    let receivedData2: boolean | undefined
+      unsubscribe();
+    });
 
-    const unsubscribe1 = eventBus.subscribe((data) => {
-      receivedData1 = data
-    }, 'event1')
+    it('then publishing and subscribing to multiple events are allowed', () => {
+      const eventBus = new EventBus<boolean>();
+      let receivedData1: boolean | undefined;
+      let receivedData2: boolean | undefined;
 
-    const unsubscribe2 = eventBus.subscribe((data) => {
-      receivedData2 = data
-    }, 'event2')
+      const unsubscribe1 = eventBus.subscribe((data) => {
+        receivedData1 = data;
+      }, 'event1');
 
-    eventBus.publishSync(true, 'event1')
-    eventBus.publishSync(false, 'event2')
+      const unsubscribe2 = eventBus.subscribe((data) => {
+        receivedData2 = data;
+      }, 'event2');
 
-    expect(receivedData1).toEqual(true)
-    expect(receivedData2).toEqual(false)
+      eventBus.publishSync(true, 'event1');
+      eventBus.publishSync(false, 'event2');
 
-    unsubscribe1()
-    unsubscribe2()
-  })
-})
+      expect(receivedData1).toEqual(true);
+      expect(receivedData2).toEqual(false);
+
+      unsubscribe1();
+      unsubscribe2();
+    });
+  });
+});

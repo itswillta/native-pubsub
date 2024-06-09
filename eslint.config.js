@@ -1,4 +1,4 @@
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu(
   {
@@ -15,6 +15,8 @@ export default antfu(
       'style/arrow-parens': ['error', 'always'],
       'curly': ['error', 'all'],
       'antfu/consistent-list-newline': 'off',
+      'semi': 'error',
+      'style/semi': 'off',
     },
   },
   {
@@ -23,4 +25,4 @@ export default antfu(
       'style/eol-last': 'off',
     },
   },
-)
+);

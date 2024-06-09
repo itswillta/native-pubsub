@@ -3,12 +3,12 @@
  * @template T - The type of data that will be passed in the events.
  */
 export class EventBus<T = Record<string, unknown>> {
-  #eventTarget: EventTarget
-  #defaultEventName: string
+  #eventTarget: EventTarget;
+  #defaultEventName: string;
 
   constructor() {
-    this.#eventTarget = new EventTarget()
-    this.#defaultEventName = crypto.randomUUID()
+    this.#eventTarget = new EventTarget();
+    this.#defaultEventName = crypto.randomUUID();
   }
 
   /**
@@ -19,16 +19,16 @@ export class EventBus<T = Record<string, unknown>> {
    */
   subscribe(eventHandler: (data: T) => void, eventName = this.#defaultEventName) {
     const handleEvent = (event: Event) => {
-      const data = (event as CustomEvent).detail as T
+      const data = (event as CustomEvent).detail as T;
 
-      eventHandler(data)
-    }
+      eventHandler(data);
+    };
 
-    this.#eventTarget.addEventListener(eventName, handleEvent)
+    this.#eventTarget.addEventListener(eventName, handleEvent);
 
     return () => {
-      this.#eventTarget.removeEventListener(eventName, handleEvent)
-    }
+      this.#eventTarget.removeEventListener(eventName, handleEvent);
+    };
   }
 
   /**
@@ -37,7 +37,7 @@ export class EventBus<T = Record<string, unknown>> {
    * @param eventName - The name of the event to publish. Defaults to the default event name.
    */
   publishSync(data: T, eventName = this.#defaultEventName) {
-    this.#eventTarget.dispatchEvent(new CustomEvent(eventName, { detail: data }))
+    this.#eventTarget.dispatchEvent(new CustomEvent(eventName, { detail: data }));
   }
 
   /**
@@ -46,8 +46,8 @@ export class EventBus<T = Record<string, unknown>> {
    * @param eventName - The name of the event to publish. Defaults to the default event name.
    */
   async publish(data: T, eventName = this.#defaultEventName) {
-    await Promise.resolve()
+    await Promise.resolve();
 
-    this.publishSync(data, eventName)
+    this.publishSync(data, eventName);
   }
 }
