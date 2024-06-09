@@ -13,13 +13,13 @@ npm install native-pubsub
 First, you need to create an event bus:
 
 ```typescript
-import { createEventBus } from 'native-pubsub'
+import { createEventBus } from 'native-pubsub';
 
-const eventBus = createEventBus()
+const eventBus = createEventBus();
 
 // or create an event bus with a typed data structure:
 
-const typedEventBus = createEventBus<{ id: string, name: string }>()
+const typedEventBus = createEventBus<{ id: string, name: string }>();
 ```
 
 Event buses are unique, and it's recommended that you only publish (and subscribe to) one kind of events for each event bus.
@@ -30,8 +30,8 @@ To subscribe to an event, use the `subscribe` method. This method takes a functi
 
 ```typescript
 const unsubscribe = eventBus.subscribe((data) => {
-  console.log(data)
-})
+  console.log(data);
+});
 ```
 
 The `subscribe` method returns a function that you can call to unsubscribe from the event.
@@ -43,13 +43,13 @@ To publish an event, you can use either the `publish` or `publishSync` method.
 The `publish` method publishes an event asynchronously:
 
 ```typescript
-eventBus.publish('Hello, world!')
+eventBus.publish('Hello, world!');
 ```
 
 The `publishSync` method publishes an event synchronously:
 
 ```typescript
-eventBus.publishSync('Hello, world!')
+eventBus.publishSync('Hello, world!');
 ```
 
 ## Contributing
