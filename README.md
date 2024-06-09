@@ -1,5 +1,8 @@
 # Native Pubsub
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/itswillta/native-pubsub/tests.yml?style=for-the-badge)
+ ![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/native-pubsub?style=for-the-badge) ![NPM Version](https://img.shields.io/npm/v/native-pubsub?style=for-the-badge)
+
 This library provides a simple and efficient way to manage events in your JavaScript or TypeScript applications. It allows you to create an event bus that you can subscribe to and publish events.
 
 ## Installation
