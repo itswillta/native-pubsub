@@ -18,7 +18,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "release": "pnpm test && pnpm build && changelogen --release --push && pnpm publish",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
