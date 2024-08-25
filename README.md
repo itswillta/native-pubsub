@@ -16,13 +16,13 @@ npm install native-pubsub
 First, you need to create an event bus:
 
 ```typescript
-import { createEventBus } from 'native-pubsub';
+import { EventBus } from 'native-pubsub';
 
-const eventBus = createEventBus();
+const eventBus = new EventBus();
 
 // or create an event bus with a typed data structure:
 
-const typedEventBus = createEventBus<{ id: string, name: string }>();
+const typedEventBus = new EventBus<{ id: string, name: string }>();
 ```
 
 Event buses are unique, and it's recommended that you only publish (and subscribe to) one kind of events for each event bus.

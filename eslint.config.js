@@ -17,6 +17,8 @@ export default antfu(
       'antfu/consistent-list-newline': 'off',
       'semi': 'error',
       'style/semi': 'off',
+      'test/prefer-lowercase-title': 'off',
+      'test/consistent-test-it': 'off',
     },
   },
   {
